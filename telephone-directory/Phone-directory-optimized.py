@@ -1,52 +1,48 @@
-#Creating a deictionary and filling it with keys and values
-directory ={"Amal":1111111111, 
-    "Mohammed":2222222222,
-    "Khadijah":3333333333, 
-    "Abdullah":4444444444, 
-    "Rawan":5555555555, 
-    "Faisal":6666666666, 
-    "Layla":7777777777}
+directory = {
+  1111111111:"Amal",
+  2222222222:"Mohammed",
+  3333333333:"Khadijah",
+  4444444444:"Abdullah",
+  5555555555:"Rawan",
+  6666666666:"Faisal",
+  7777777777:"Layla"
+}
 
-#Defining a function that locate the key based on the value
-def getkey(num):
+def getkey(nm):
   for key, value in directory.items():
-    if num == value:
+    if nm == value:
       return key
 
-#As long as the asthe user inputs "Y", the program will continue to run
-answer = "Y"
-print(" ********** Welcome to the telephone directory **********\n ")
-while answer == "Y":
-  
-  choice = input("Type 1 to search using a name\nor\nType 2 to search using a phone number\nor\nType 3 to add an entry\n")
+end = False
+while not end:
+    print("To search using a phone number, type '1'")
+    print("To search using a name, type '2'")
+    print("To add an entry, type '3'")
+    print("Or to quit, type '4'\n\n")
+    choice = input("Please choose the required service: ")
 
-#Case 1: The user is trying to find a phone number based on the user's name
-  if choice == "1":
-    direct_name = input("Please enter a name:\n").capitalize()
-    if direct_name in directory:
-      print(f"The phone number is: {directory[direct_name]}")
-    else:
-      print("Sorry, the user is not found")
+    if choice == "4":
+      end = True
+      print("Thank you for using the phone directory")
 
-#Case 2: The user is looking to find the name who's the phone number belongs to
-  elif choice == "2":
-    direct_num = int(input("Please enter the a phone number:\n"))
-    if direct_num in directory:
-      print(f"This phone number belongs to: {getkey(direct_num)}")
-    elif len(str(direct_num)) > 10 or len(str(direct_num)) < 10:
-      print("This is an ivalid number")
-    else: 
-      print("Sorry, the user is not found")
+    elif choice == "1":
+      phone_num = int(input("Please enter a phone number: "))
+      if len(str(phone_num)) == 10 and phone_num in directory:
+          print(f"This phone number belongs to: {directory[phone_num]}\n\n")
+      elif len(str(phone_num)) == 10 and phone_num not in directory:
+          print("Sorry, the number is not found\n\n")
+      else:
+          print("This is an invalid number\n\n")
 
-#Case 3: The user Will add an enrty to the phone directory
-  elif choice == "3":
-    name = input("Please enter the name of the user: ").capitalize()
-    phone = int(input ("Please enter the phone number: "))
-    directory[name]=phone
-    print (f"Updated directory:\n{directory}\n")
+    elif choice == "2":
+      name = input("Please enter a name: ").capitalize()
+      if getkey(name) in directory:
+        print(f"The phone number is {getkey(name)}\n\n")
+      else:
+        print("Sorry, this user is not in the phone directory")
 
-#typing "N" will end the programm. "Y" will run it again
-  answer = input(" ********** Type 'Y' to run again or 'N' to quit ********** ").upper()
-  if answer == "N":
-   break 
- 
+    elif choice == "3":
+      name_entry = input("Please enter a name: ").capitalize()
+      number_entry = int(input("Please enter a phone number: "))
+      directory[number_entry] = name_entry
+      print(f"Directory updated: {directory}\n\n")
